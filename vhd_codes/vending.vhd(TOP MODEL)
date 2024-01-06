@@ -1,0 +1,66 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use IEEE.std_logic_unsigned.all;
+entity vending is
+Port (
+Mhz100,rstclk,rst_machine : in std_logic;
+Nickle,Dime : in std_logic;
+Candyy, CRR : out std_logic;
+bit7 : out std_logic_vector (6 downto 0);
+anode : out std_logic_vector (3 downto 0);
+Hzz100 : out std_logic;
+helpoutput : out std_logic_vector (5 downto 0)
+);
+end vending;
+architecture Behavioral of vending is
+component ClkDiv is
+Port (
+clk, rst1 : in std_logic;
+clk_out : out std_logic
+);
+end component;
+component button is
+Port (
+clk2,bi,rst2 : in std_logic;
+bo : out std_logic
+);
+end component;
+component machine is
+Port (
+clk3,rst3,N,D : in std_logic;
+candy,CR : out std_logic;
+Number : out STD_LOGIC_VECTOR (5 downto 0)
+);
+end component;
+component twodigit is
+Port (
+Number1 : in std_logic_vector (5 downto 0);
+clk4 : in std_logic;
+out7 : out std_logic_vector (6 downto 0);
+en_out : out std_logic_vector (3 downto 0)
+);
+end component;
+signal clk_out,clk,rst1 : std_logic;
+signal bo,bi,clk2,rst2 : std_logic;
+signal clk3,rst3,N,D,candy,CR : std_logic;
+signal Number : STD_LOGIC_VECTOR (5 downto 0);
+signal Number1 : std_logic_vector (5 downto 0);
+signal clk4 : std_logic;
+signal out7 : std_logic_vector (6 downto 0);
+signal en_out : std_logic_vector (3 downto 0);
+signal NN : std_logic;
+signal DD : std_logic;
+signal Hz100 : std_logic;
+signal Numberr : std_logic_vector (5 downto 0) :="000000";
+signal decimalnumber : integer := 0;
+begin
+helpoutput <= Numberr;
+Hzz100 <= Hz100;
+ClkDivv : ClkDiv port map (clk => Mhz100, rst1 =>rstclk, clk_out => Hz100);
+Button1 : button port map (clk2 => Hz100, bi => Nickle, rst2 => rst_machine, bo =>NN);
+Button2 : button port map (clk2 => Hz100, bi => Dime, rst2 => rst_machine, bo =>DD);
+machinee : machine port map(clk3 => Hz100, rst3 => rst_machine, N=> NN, D => DD, candy =>
+Candyy, CR=> CRR, Number => Numberr);
+twodigitt : twodigit port map(Number1 => Numberr, clk4 => Mhz100, out7=> bit7, en_out =>anode);
+end Behavioral;
