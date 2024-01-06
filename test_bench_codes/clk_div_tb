@@ -1,0 +1,31 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+entity ClkDiv_tb1 is
+end ClkDiv_tb1;
+architecture test_gate of ClkDiv_tb1 is
+component ClkDiv is
+Port (
+clk, rst1 : in std_logic;
+clk_out : out std_logic
+);
+end component;
+signal clk_t : std_logic:='0';
+signal rst1_t : std_logic:='0';
+signal clk_out_t : std_logic;
+constant clk_period : time := 10 ns;
+begin
+UUT: ClkDiv port map(
+clk => clk_t,
+rst1 => rst1_t,
+clk_out => clk_out_t
+);
+clk_process :process
+begin
+clk_t <='0';
+wait for clk_period/2;
+clk_t <='1';
+wait for clk_period/2;
+end process clk_process;
+rst1_t <= '0';
+end test_gate;
