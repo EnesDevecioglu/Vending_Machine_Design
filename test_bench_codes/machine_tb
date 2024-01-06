@@ -1,0 +1,115 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+entity machine_tb is
+end machine_tb;
+architecture test_gate of machine_tb is
+component machine is
+Port (
+clk3,rst3,N,D : in std_logic;
+candy,CR : out std_logic;
+Number : out STD_LOGIC_VECTOR (5 downto 0)
+);
+end component;
+signal clk3_t, rst3_t, N_t, D_t : std_logic :='0';
+signal candy_t, CR_t : std_logic;
+signal Number_t : std_logic_vector (5 downto 0);
+constant clk_period : time := 10 ns;
+begin
+UUT: machine port map(
+clk3 => clk3_t,
+rst3 => rst3_t,
+N => N_t,
+D => D_t,
+candy => candy_t,
+CR => CR_t,
+Number => Number_t
+);
+clk_process :process
+begin
+clk3_t <='0';
+wait for clk_period/2;
+clk3_t <='1';
+wait for clk_period/2;
+end process clk_process;
+N_process: process
+begin
+N_t <='0';
+wait for 10ns;
+N_t <='1';
+wait for 10ns;
+N_t <='0';
+wait for 10ns;
+N_t <='1';
+wait for 10ns;
+N_t <='0';
+wait for 10ns;
+N_t <='1';
+wait for 10ns;
+N_t <='0';
+wait for 10ns;
+N_t <='1';
+wait for 10ns;
+N_t <='0';
+wait for 20ns;
+N_t <='1';
+wait for 10ns;
+N_t <='0';
+wait;
+end process N_process;
+D_process: process
+begin
+D_t <='0';
+wait for 100ns;
+D_t <='1';
+wait for 10ns;
+D_t <='0';
+wait for 10ns;
+D_t <='1';
+wait for 10ns;
+D_t <='0';
+wait for 10ns;
+D_t <='1';
+wait for 10ns;
+D_t <='0';
+wait for 10ns;
+D_t <='1';
+wait for 10ns;
+D_t <='0';
+wait for 150ns;
+D_t <='1';
+wait for 10ns;
+D_t <='0';
+wait for 10ns;
+D_t <='1';
+wait for 10ns;
+D_t <='0';
+wait for 10ns;
+D_t <='1';
+wait for 10ns;
+D_t <='0';
+wait for 10ns;
+D_t <='1';
+wait for 10ns;
+D_t <='0';
+wait for 10ns;
+D_t <='1';
+wait for 10ns;
+D_t <='0';
+wait;
+end process D_process;
+--rst3_t <='0';
+rst_process: process
+begin
+rst3_t <= '0';
+wait for 60ns;
+rst3_t <='1';
+wait for 10ns;
+rst3_t <='0';
+wait for 120ns;
+rst3_t <='1';
+wait for 10ns;
+rst3_t <='0';
+wait;
+end process rst_process;
+end test_gate;
