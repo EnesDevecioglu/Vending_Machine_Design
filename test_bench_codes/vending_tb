@@ -1,1 +1,152 @@
+----------------------------------------------------------------------------------
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use IEEE.std_logic_unsigned.all;
+
+
+entity vending_tb is
+end vending_tb;
+
+architecture test_gate of vending_tb is
+component vending is
+Port ( 
+Mhz100,rstclk,rst_machine : in std_logic;
+Nickle,Dime : in std_logic;
+Candyy, CRR : out std_logic;
+bit7 : out std_logic_vector (6 downto 0);
+anode : out std_logic_vector (3 downto 0);
+Hzz100: out std_logic;
+helpoutput:  out std_logic_vector (5 downto 0)
+);
+end component;
+
+signal Mhz100_t, rstclk_t, rst_machine_t, Nickle_t, Dime_t, Candyy_t, CRR_t, Hzz100_t : std_logic;
+signal bit7_t : std_logic_vector (6 downto 0);
+signal anode_t : std_logic_vector (3 downto 0);
+
+signal helpoutput_t : std_logic_vector (5 downto 0);
+
+constant clk_period : time := 10ns;
+
+
+begin
+UUT: vending port map(
+Mhz100 => Mhz100_t,
+rstclk => rstclk_t,
+rst_machine => rst_machine_t,
+Nickle => Nickle_t,
+Dime => Dime_t,
+Candyy => Candyy_t,
+CRR => CRR_t,
+bit7 => bit7_t,
+anode => anode_t,
+Hzz100 => Hzz100_t,
+helpoutput => helpoutput_t
+);
+clk_process :process
+begin
+
+Mhz100_t <='0';
+wait for clk_period/2;
+Mhz100_t <='1';
+wait for clk_period/2;
+end process clk_process;
+
+rstclk_t <='0';
+
+process
+begin
+rst_machine_t <='0';
+wait for 240ms;
+rst_machine_t <='1';
+wait for 10ms;
+rst_machine_t <='0';
+
+wait;
+end process;
+
+
+
+
+
+
+N_process: process
+begin
+Nickle_t <='0';
+wait for 10ms;
+Nickle_t <='1';
+wait for 10ms;
+Nickle_t <='0';
+wait for 20ms;
+Nickle_t <='1';
+wait for 10ms;
+Nickle_t <='0';
+wait for 10ms;
+Nickle_t <='1';
+wait for 10ms;
+Nickle_t <='0';
+wait for 190ms;
+Nickle_t <='1';
+wait for 10ms;
+Nickle_t <='0';
+wait for 20ms;
+Nickle_t <='1';
+wait for 30ms;
+Nickle_t <='0';
+wait for 10ms;
+Nickle_t <='1';
+wait for 10ms;
+Nickle_t <='0';
+wait for 10ms;
+Nickle_t <='1';
+wait for 10ms;
+Nickle_t <='0';
+
+wait;
+end process N_process;
+
+D_process: process
+begin
+Dime_t <='0';
+wait for 10ms;
+Dime_t <='1';
+wait for 20ms;
+Dime_t <='0';
+wait for 50ms;
+Dime_t <='1';
+wait for 30ms;
+Dime_t <='0';
+wait for 10ms;
+Dime_t <='1';
+wait for 10ms;
+Dime_t <='0';
+wait for 10ms;
+Dime_t <='1';
+wait for 10ms;
+Dime_t <='0';
+wait for 40ms;
+Dime_t <='1';
+wait for 10ms;
+Dime_t <='0';
+wait for 70ms;
+Dime_t <='1';
+wait for 10ms;
+Dime_t <='0';
+wait for 50ms;
+Dime_t <='1';
+wait for 10ms;
+Dime_t <='0';
+wait for 30ms;
+Dime_t <='1';
+wait for 10ms;
+Dime_t <='0';
+wait for 30ms;
+Dime_t <='1';
+wait for 10ms;
+Dime_t <='0';
+wait;
+end process D_process;
+end test_gate;
 
