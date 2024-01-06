@@ -1,0 +1,51 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+entity button_tb1 is
+end button_tb1;
+architecture test_gate of button_tb1 is
+component button is
+Port (
+clk2,bi,rst2 : in std_logic;
+bo : out std_logic
+);
+end component;
+signal clk2_t : std_logic :='0';
+signal bi_t : std_logic :='0';
+signal rst2_t : std_logic :='0';
+signal bo_t: std_logic;
+constant clk_period : time := 10 ns;
+begin
+UUT: button port map(
+clk2 => clk2_t,
+bi => bi_t,
+rst2 => rst2_t,
+bo => bo_t
+);
+clk_process : process
+begin
+clk2_t <='0';
+wait for clk_period/2;
+clk2_t <='1';
+wait for clk_period/2;
+end process clk_process;
+bi_process: process
+ begin
+ bi_t <= '0';
+ wait for 20 ns;
+ bi_t <= '1';
+ wait for 60 ns;
+ bi_t <= '0';
+ wait for 30 ns;
+ bi_t <= '1';
+ wait for 70 ns;
+ bi_t <= '0';
+ wait;
+ end process bi_process;
+rst2_process: process
+begin
+ rst2_t <= '1';
+ wait for 7ns;
+ rst2_t <='0';
+ wait;
+end process rst2_process;
+end test_gate;
